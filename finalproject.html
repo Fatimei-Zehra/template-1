@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SALAM AKADASSLAR</title>
+</head>
+
+<body>
+
+    <script>
+        //VARIABLES:
+        let exit = false;
+        let users = [];
+        let isLoggedIn = false;
+        let loggedEmail = "";
+
+
+
+        //REGISTRATION:
+        function registrationProcess() {
+            let userMail = prompt("To register enter your email address");
+            let result = userCheck(userMail);
+
+            if (result == false) {
+                users[users.length] = userMail;
+            }
+            else {
+                alert("This email is already in use");
+            }
+            console.log(users);
+        }
+
+
+
+
+        //CHECK-USER:
+        function userCheck(mail) {
+            for (let i = 0; i < users.length; i++) {
+                if (users[i] == mail) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+        //LOGIN:
+        function login() {
+            while (exit == false) {
+                let username = prompt("Please enter your email address");
+                let result = userCheck(username);
+
+                if (result == true) {
+                    isLoggedIn = true;
+                    loggedEmail = username;
+                    alert("You are logged in");
+                    break;
+                }
+                else {
+                    alert("Please enter your information correctly")
+                }
+            }
+        }
+
+
+
+
+
+        //EMAIL-CHANGE:
+        function updateMail() {
+            if (isLoggedIn == false) {
+                alert("Please Log in first");
+                return (startApp());
+            }
+            else {
+                let newEmail = prompt("Enter a new email to update your email");
+
+                for (let i = 0; i < users.length; i++) {
+                    if (users[i] == loggedEmail) {
+                        //TODO: change this
+                        users[i] = newEmail;
+                        alert("Email changed to: " + newEmail);
+                    }
+                    else {
+                        console.log("New email not provided. Email remains unchanged.");
+                    }
+                }
+            }
+        }
+
+
+
+        //DISPLAY-ALL-REGISTERED-EMAILS:
+        function registeredEmails() {
+            if (isLoggedIn == false) {
+                alert("Please Log in first");
+                return (startApp());
+            }
+            else {
+                console.log("Registered emails: ")
+                console.log(users);
+            }
+        }
+
+
+
+        //LOGOUT:
+        function logout() {
+            if (isLoggedIn == false) {
+                alert("Please Log in first");
+                return startApp();
+            }
+            else {
+                isLoggedIn == false
+                loggedEmail = ""
+                alert("Logged out");
+            }
+        }
+
+
+
+        //START-APP:
+        function startApp() {
+            while (exit == false) {
+                let num = prompt("Enter to number");
+
+                if (num == 1) {
+                    return registrationProcess();
+                }
+                else if (num == 2) {
+                    return login();
+                    // isLoggedIn = false;
+                }
+                else if (num == 3) {
+                    return updateMail();
+                }
+                else if (num == 4) {
+                    return registeredEmails();
+                }
+                else if (num == 5) {
+                    return logout();
+                }
+                else if (num == 0) {
+                    exit = true;
+                }
+            }
+        }
+
+        //RUN-APP:
+        while (exit == false) {
+            startApp();
+        }
+
+    </script>
+</body>
+
+</html>

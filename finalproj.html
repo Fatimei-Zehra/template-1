@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <script>
+
+        let exit = false;
+        let users = [];
+        let isLoggedIn = false;
+        let loggedEmail = "";
+
+        //////////////////////////////////////////////////////////QEYDIYYAT////////////////////////////////////////////////////////////////////////
+
+        function registrationProcess() {
+            // if (isLoggedIn == true) {
+            //     return startApp();
+            // }
+            // else {
+                let userMail = prompt("Qeydiyyatdan kecmek ucun emailinizi daxil edin");
+                let result = userCheck(userMail);
+
+                if (result == false) {
+                    users[users.length] = userMail;
+                }
+                else {
+                    alert("Bu email artiq istifade olunub");
+                }
+            }
+
+            console.log(users);
+        // }
+
+
+
+        ///////////l////////////////////////////////////////////////////CHECK/////////////////////////////////////////////////////////////////////
+
+        function userCheck(mail) {
+            for (let i = 0; i < users.length; i++) {
+                if (users[i] == mail) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        ////////////////////////////////////////////////////////////////LOGIN//////////////////////////////////////////////////////////////////
+
+        function login() {
+
+            while (exit == false) {
+                let username = prompt("Zehmet olmasa emailinizi daxil edin");
+                let result = userCheck(username);
+
+                if (result == true) {
+                    isLoggedIn = true;
+                    loggedEmail = username;
+                    alert("Sisteme daxil oldunuz");
+                    break;
+                }
+                else {
+                    alert("Melumatlarinizi duzgun daxil etmediniz")
+
+                }
+            }
+        }
+        // console.log(login());
+
+
+
+
+        //////////////////////////////////////////////////////////////EMAIL CHANGE/////////////////////////////////////////////////////////////////
+
+        function updateMail() {
+
+            if (isLoggedIn == false) {
+                alert("Zehmet olmasa ilk once Login olun");
+                return (startApp());
+            }
+            else {
+                let newEmail = prompt("Yeni email yazin");
+
+                for (let i = 0; i < users.length; i++) {
+                    if (users[i] == loggedEmail) {
+                        //TODO: change this
+                        users[i] = newEmail;
+                        alert("Email changed to: " + newEmail);
+                    }
+                    else {
+                        console.log("New email not provided. Email remains unchanged.");
+                    }
+                }
+            }
+        }
+        // console.log(change());
+
+
+
+        /////////////////////////////////////////////////////DISPLAY ALL REGISGTERED EMAILS////////////////////////////////////////////////////////
+
+        function registeredEmails() {
+
+            if (isLoggedIn == false) {
+                alert("Zehmet olmasa ilk once Login olun");
+                return (startApp());
+            }
+            else {
+                console.log("Qeydiyyatdan kecmis emailler: ")
+                console.log(users);
+            }
+
+        }
+        // console.log(registeredEmails());
+
+
+        function logout() {
+
+            if (isLoggedIn == false) {
+                alert("Zehmet olmasa ilk once Login olun");
+                return startApp();
+            }
+            else {
+                isLoggedIn == false
+                loggedEmail = ""
+                alert("sistemden cixdiniz");
+            }
+
+        }
+        /////////////////////////////////////////////////////START APP//////////////////////////////////////////////////////////
+
+        function startApp() {
+
+            while (exit == false) {
+                let num = prompt("Enter to number");
+
+                if (num == 1) {
+                    return registrationProcess();
+                }
+
+                else if (num == 2) {
+                    return login();
+                    isLoggedIn = true;
+                }
+
+                else if (num == 3) {
+                    return updateMail();
+                }
+
+                else if (num == 4) {
+                    return registeredEmails();
+                }
+
+                else if (num == 5) {
+                    return logout();
+                }
+
+                else if (num == 0) {
+                    exit = true;
+                }
+            }
+        }
+
+        ////////////////////////////////////////////////////////////////APP-i ISE SALMA////////////////////////////////////////////////////////////
+        while (exit == false) {
+            startApp();
+        }
+
+        //her prosesin xetasinda sistem qayitsin menuya
+        //loginden sonra 1 duymesini basanda sistemden cixdiniz demesin !
+    </script>
+
+</body>
+
+</html>
